@@ -291,7 +291,7 @@ void ObjectSynchronizer::slow_enter(Handle obj, BasicLock* lock, TRAPS) {
   // 这时候需要膨胀为重量级锁，膨胀前，设置Displaced Mark Word为一个特殊值，代表该锁正在用一个重量级锁的monitor
   lock->set_displaced_header(markOopDesc::unused_mark());
   // 锁膨胀的过程，该方法返回一个ObjectMonitor对象，然后调用其enter方法
-  ObjectSynchronizer::inflate(2, obj())->enter(THREAD);
+  ObjectSynchronizer::inflate(THREAD, obj())->enter(THREAD);
 }
 
 // This routine is used to handle interpreter/compiler slow case
